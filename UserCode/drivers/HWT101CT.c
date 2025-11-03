@@ -140,6 +140,8 @@ void HWT101CT_RxCallback(HWT101CT_t* hwt101ct)
 void HWT101CT_ResetYaw(HWT101CT_t* hwt101ct)
 {
     // hwt101ct->yaw = 0.0f;
+    hwt101ct->round_count  = 0;
+    hwt101ct->feedback_yaw = 0.0f;
     write_reg(hwt101ct, 0x76, 0x00, 0x00);
 }
 
