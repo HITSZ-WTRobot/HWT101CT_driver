@@ -8,6 +8,8 @@
 #define HWT101CT_H
 #include "main.h"
 
+#define __HWT101CT_VERSION__ "1.0.0"
+
 #define HWT101CT_HEAD    (0x55)
 #define HWT101CT_CMD_LEN (11U)
 
