@@ -46,10 +46,12 @@ static void write_reg(const HWT101CT_t* hwt101ct,
  */
 void HWT101CT_Init(HWT101CT_t* hwt101ct, UART_HandleTypeDef* huart)
 {
-    hwt101ct->huart      = huart;
-    hwt101ct->yaw        = 0.0f;
-    hwt101ct->wz         = 0.0f;
-    hwt101ct->sync_state = HWT101CT_WAIT_HEAD;
+    hwt101ct->huart        = huart;
+    hwt101ct->yaw          = 0.0f;
+    hwt101ct->round_count  = 0;
+    hwt101ct->feedback_yaw = 0.0f;
+    hwt101ct->wz           = 0.0f;
+    hwt101ct->sync_state   = HWT101CT_WAIT_HEAD;
     UART_Start_Receive_IT(huart, hwt101ct->rx_buffer, 1);
 }
 
