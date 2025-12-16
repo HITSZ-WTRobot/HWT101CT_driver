@@ -74,6 +74,7 @@ void HWT101CT_DecodeData(HWT101CT_t* hwt101ct, const uint8_t* data)
     switch (data[1])
     {
     case 0x53:
+    {
         const float new_yaw = (float) ((int16_t) (data[7] << 8) | data[6]) / 32768.0f * 180.0f;
         if (hwt101ct->feedback_yaw > 60.0f && new_yaw < -60.0f)
             hwt101ct->round_count++;
@@ -82,6 +83,7 @@ void HWT101CT_DecodeData(HWT101CT_t* hwt101ct, const uint8_t* data)
         hwt101ct->yaw          = new_yaw + (float) hwt101ct->round_count * 360.0f;
         hwt101ct->feedback_yaw = new_yaw;
         break;
+    }
     case 0x52:
         hwt101ct->wz = (float) ((int16_t) (data[7] << 8) | data[6]) / 32768.0f * 2000.0f;
         break;
