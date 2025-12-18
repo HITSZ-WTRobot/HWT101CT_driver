@@ -1,10 +1,13 @@
 # UserCode/CMakeLists.txt
 cmake_minimum_required(VERSION 3.21)
-project(HWT101CT)
+
+set(LIB_NAME HW101CT_driver)
+
+project(${LIB_NAME})
 
 # 导库方式
 # add_subdirectory({project_path}/UserCode)
-# target_link_libraries(${PROJECT_NAME}.elf PRIVATE HWT101CT)
+# target_link_libraries(${PROJECT_NAME}.elf PRIVATE HW101CT_driver)
 
 # ---------------------------------------------------------------------------
 # guard: UserCode should only be included by parent project
@@ -33,13 +36,16 @@ set(DRIVER_MACROS "")
 # ---------------------------------------------------------------------------
 # create static library
 # ---------------------------------------------------------------------------
-add_library(${PROJECT_NAME} STATIC ${ALL_SOURCES})
+add_library(HW101CT_driver STATIC ${ALL_SOURCES})
+if (NOT TARGET ${LIB_NAME})
+    message(FATAL_ERROR "target ${LIB_NAME} not created")
+endif ()
 
 # ---------------------------------------------------------------------------
 # compile definitions
 # ---------------------------------------------------------------------------
 if (DRIVER_MACROS)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC ${DRIVER_MACROS})
+    target_compile_definitions(${LIB_NAME} PUBLIC ${DRIVER_MACROS})
 endif ()
 
 # ---------------------------------------------------------------------------
@@ -47,7 +53,7 @@ endif ()
 # ---------------------------------------------------------------------------
 set(EXPORT_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/include)
 file(MAKE_DIRECTORY ${EXPORT_INCLUDE_DIR})
-target_include_directories(${PROJECT_NAME} PUBLIC ${EXPORT_INCLUDE_DIR})
+target_include_directories(${LIB_NAME} PUBLIC ${EXPORT_INCLUDE_DIR})
 
 # ---------------------------------------------------------------------------
 # copy selected headers
@@ -61,5 +67,7 @@ endforeach ()
 # ---------------------------------------------------------------------------
 # declare dependencies
 # ---------------------------------------------------------------------------
-target_link_libraries(${PROJECT_NAME} PRIVATE stm32cubemx)
 add_dependencies(${PROJECT_NAME} stm32cubemx)
+target_link_libraries(${PROJECT_NAME} PRIVATE stm32cubemx)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE m)
