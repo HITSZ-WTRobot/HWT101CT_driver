@@ -1,8 +1,6 @@
-# generated on 2025-11-01 23:31:08
+# generated on 2025-12-18 15:51:39
 ### Auto-generated files ###
 # auto-generated files by ide
-# section: clion
-CMakeLists.txt
 
 ### Build artifacts ###
 # CMake build outputs, object files, binaries
@@ -21,6 +19,8 @@ Release/
 
 ### IDE and Editor files ###
 # IDE projects, editor configs, plugins
+# section: eide
+.eide*
 # section: keil
 *.uvprojx
 *.uvoptx
@@ -28,21 +28,18 @@ Release/
 *.eww
 *.ewd
 *.ewp
-# section: eide
-.eide*
-!.eide/
 
 ### STM32CubeMX ###
 # CubeMX auto-generated sources and metadata
-Core/
-Drivers/
-Middlewares/
-USB_Device/
-FATFS/
-LWIP/
-MX/
-TouchGFX/
-Utilities/
+/Core/
+/Drivers/
+/Middlewares/
+/USB_Device/
+/FATFS/
+/LWIP/
+/MX/
+/TouchGFX/
+/Utilities/
 .startup/
 startup_stm32*.s
 *.ld
