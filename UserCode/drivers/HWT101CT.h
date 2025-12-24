@@ -82,4 +82,14 @@ void HWT101CT_ResetYaw(HWT101CT_t* hwt101ct);
 void HWT101CT_Calibrate(const HWT101CT_t* hwt101ct, uint32_t duration_ms);
 void HWT101CT_SetOutputRate(const HWT101CT_t* hwt101ct, HWT101CT_RRate_t rate);
 
+static float* HWT101CT_GetYawPtr(HWT101CT_t* hwt101ct)
+{
+    return &hwt101ct->yaw;
+}
+
+static float* HWT101CT_GetWzPtr(HWT101CT_t* hwt101ct)
+{
+    return &hwt101ct->wz;
+}
+
 #endif // HWT101CT_H
