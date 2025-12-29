@@ -93,6 +93,24 @@ void HWT101CT_DecodeData(HWT101CT_t* hwt101ct, const uint8_t* data)
     }
 }
 
+void HWT101CT_RxErrorHandler(HWT101CT_t* hwt101ct)
+{
+    HWT101CT_DEBUG_FRAME_ERROR(hwt101ct);
+
+    // clear error flags
+    __HAL_UART_CLEAR_PEFLAG(hwt101ct->huart);
+    __HAL_UART_CLEAR_FEFLAG(hwt101ct->huart);
+    __HAL_UART_CLEAR_NEFLAG(hwt101ct->huart);
+    __HAL_UART_CLEAR_OREFLAG(hwt101ct->huart);
+
+    // restart receive
+    if (hwt101ct->sync_state == HWT101CT_DMA_ACTIVE)
+        HAL_UART_DMAStop(hwt101ct->huart);
+    if (hwt101ct->sync_state != HWT101CT_WAIT_HEAD)
+        hwt101ct->sync_state = HWT101CT_WAIT_HEAD;
+    HAL_UART_Receive_IT(hwt101ct->huart, hwt101ct->rx_buffer, 1);
+}
+
 /**
  * 串口 Rx 接收回调
  *

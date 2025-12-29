@@ -78,6 +78,7 @@ static float HWT101CT_GetWz(const HWT101CT_t* hwt101ct)
 
 void HWT101CT_Init(HWT101CT_t* hwt101ct, UART_HandleTypeDef* huart);
 void HWT101CT_RxCallback(HWT101CT_t* hwt101ct);
+void HWT101CT_RxErrorHandler(HWT101CT_t* hwt101ct);
 void HWT101CT_ResetYaw(HWT101CT_t* hwt101ct);
 void HWT101CT_Calibrate(const HWT101CT_t* hwt101ct, uint32_t duration_ms);
 void HWT101CT_SetOutputRate(const HWT101CT_t* hwt101ct, HWT101CT_RRate_t rate);
