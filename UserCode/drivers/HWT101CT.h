@@ -7,6 +7,7 @@
 #ifndef HWT101CT_H
 #define HWT101CT_H
 #include "main.h"
+#include <stdbool.h>
 
 #define __HWT101CT_VERSION__ "1.0.0"
 
@@ -91,6 +92,11 @@ static float* HWT101CT_GetYawPtr(HWT101CT_t* hwt101ct)
 static float* HWT101CT_GetWzPtr(HWT101CT_t* hwt101ct)
 {
     return &hwt101ct->wz;
+}
+
+static bool HWT101CT_isConnected(HWT101CT_t* hwt101ct)
+{
+    return hwt101ct->sync_state == HWT101CT_DMA_ACTIVE;
 }
 
 #endif // HWT101CT_H
