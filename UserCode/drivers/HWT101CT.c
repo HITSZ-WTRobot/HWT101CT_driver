@@ -95,6 +95,11 @@ void HWT101CT_DecodeData(HWT101CT_t* hwt101ct, const uint8_t* data)
 
 void HWT101CT_RxErrorHandler(HWT101CT_t* hwt101ct)
 {
+    if (hwt101ct->huart->ErrorCode == HAL_UART_ERROR_NONE)
+    {
+        // not a real uart error
+        return;
+    }
     HWT101CT_DEBUG_FRAME_ERROR(hwt101ct);
 
     // clear error flags
@@ -127,6 +132,7 @@ void HWT101CT_RxCallback(HWT101CT_t* hwt101ct)
             HAL_UART_DMAStop(hwt101ct->huart);
             hwt101ct->sync_state = HWT101CT_WAIT_HEAD;
             HAL_UART_Receive_IT(hwt101ct->huart, hwt101ct->rx_buffer, 1);
+            return;
         }
         HWT101CT_DecodeData(hwt101ct, hwt101ct->rx_buffer);
     }
